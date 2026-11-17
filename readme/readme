@@ -1,48 +1,48 @@
-QuickBite – MERN Food Delivery Website
+# QuickBite – MERN Food Delivery Website
 
 A full-stack food ordering platform built with MongoDB, Express, React and Node.js, featuring online payments, coupons, ratings and a complete admin panel.
 
-App	Description	Tech	URL
-backend/	REST API	Node.js, Express, MongoDB (Mongoose)	http://localhost:4000
-frontend/	Customer website	React, Vite	http://localhost:5173
-admin/	Admin panel	React, Vite	http://localhost:5174
-✨ Features
+| App | Description | Tech | URL |
+|---|---|---|---|
+| backend/ | REST API | Node.js, Express, MongoDB (Mongoose) | http://localhost:4000 |
+| frontend/ | Customer website | React, Vite | http://localhost:5173 |
+| admin/ | Admin panel | React, Vite | http://localhost:5174 |
 
-Customer
+## Features
 
-Browse the menu by category, search dishes, view dish details and reviews
-Cart that works before login and syncs to the account after sign-in
-Secure sign-up/login (JWT authentication, bcrypt password hashing)
-Checkout with delivery address, coupon codes and card payment or Cash on Delivery
-Order tracking with live status; cancel orders with automatic refund
-Ratings & reviews for delivered dishes
+### Customer
+- Browse the menu by category, search dishes, view dish details and reviews
+- Cart that works before login and syncs to the account after sign-in
+- Secure sign-up and login (JWT authentication, bcrypt password hashing)
+- Checkout with delivery address, coupon codes, card payment or Cash on Delivery
+- Order tracking with live status
+- Cancel orders with automatic refund
+- Ratings and reviews for delivered dishes
 
-Admin
+### Admin
+- Secure admin login
+- Add and remove dishes with image upload (Multer)
+- Manage orders and update status (Processing → Out for Delivery → Delivered / Cancelled)
+- Dashboard with total orders, pending orders and revenue
+- Create and manage coupons (flat or percentage, minimum order, usage limit, expiry)
+- Moderate customer reviews
 
-Secure admin login
-Add and remove dishes with image upload (Multer)
-Manage orders and update status (Processing → Out for Delivery → Delivered / Cancelled)
-Dashboard with total orders, pending orders and revenue
-Create and manage coupons (flat or percentage, minimum order, usage limit, expiry)
-Moderate customer reviews
+### Security
+- Prices and discounts are calculated on the server
+- Payments are verified on the server before an order is confirmed
+- Admin-only routes are protected by role-based tokens
 
-Security
+## Tech Stack
+- Frontend: React, React Router, Context API, Axios, Vite
+- Backend: Node.js, Express.js, Mongoose, JWT, bcrypt, Multer
+- Database: MongoDB (built-in local instance or MongoDB Atlas)
+- Payments: Stripe Checkout and a built-in test-mode card payment
 
-Prices and discounts are calculated on the server, never trusted from the browser
-Payments are verified on the server before an order is confirmed
-Admin-only routes are protected by role-based tokens
-🛠 Tech Stack
+## Getting Started
 
-Frontend: React, React Router, Context API, Axios, Vite
-Backend: Node.js, Express.js, Mongoose, JWT, bcrypt, Multer
-Database: MongoDB (built-in local instance, or MongoDB Atlas)
-Payments: Stripe Checkout, plus a built-in test-mode card payment
+Requirement: Node.js 18 or newer. No database setup is needed; the backend starts a local MongoDB automatically.
 
-🚀 Getting Started
-
-Requirement: Node.js 18+. No database setup is needed: the backend starts a local MongoDB automatically.
-
-bash
+```bash
 # Terminal 1: Backend
 cd backend
 npm install
@@ -57,35 +57,42 @@ npm run dev
 cd admin
 npm install
 npm run dev
+```
 
-On first start, the backend loads sample dishes and coupons. Optionally, run npm run photos in backend to download real food photos.
+- Sample dishes and coupons are added on the first start
+- Run `npm run photos` in the backend folder to download real food photos
+- Admin login: `admin@quickbite.com` / `admin12345`
+- Test card: `4242 4242 4242 4242`, any future date, any CVC
+- Sample coupons: `WELCOME50` (₹50 off above ₹199), `FEAST20` (20% off above ₹300)
 
-Admin login: admin@quickbite.com / admin12345
-Test card: 4242 4242 4242 4242, any future date, any CVC
-Sample coupons: WELCOME50 (₹50 off above ₹199), FEAST20 (20% off above ₹300)
+## Configuration (optional)
 
-⚙️ Configuration (optional)
+Create `backend/.env` from `.env.example` to change the defaults:
 
-Create backend/.env from .env.example to override defaults:
+- `MONGO_URL` – use MongoDB Atlas instead of the local database
+- `STRIPE_SECRET_KEY` – enable Stripe Checkout
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD` – admin login
+- `JWT_SECRET` – token signing secret (set before deployment)
 
-Variable	Purpose
-MONGO_URL	Use MongoDB Atlas instead of the local database
-STRIPE_SECRET_KEY	Enable Stripe Checkout
-ADMIN_EMAIL, ADMIN_PASSWORD	Admin credentials
-JWT_SECRET	Token signing secret (set before deployment)
-📁 Project Structure
+## Project Structure
+
+```
 quickbite/
-├── backend/    # config, models, controllers, routes, middleware, scripts
-├── frontend/   # React customer app (components, pages, context)
-└── admin/      # React admin panel (pages, components)
-🔌 Main API Endpoints
-Area	Endpoints
-Food	GET /api/food/list, POST /api/food/add, POST /api/food/remove
-Auth	POST /api/user/register, POST /api/user/login, POST /api/admin/login
-Cart	GET /api/cart/get, POST /api/cart/add, POST /api/cart/remove
-Orders	POST /api/order/place, GET /api/order/userorders, POST /api/order/cancel, POST /api/order/status
-Coupons	POST /api/coupon/apply, POST /api/coupon/add, GET /api/coupon/list
-Reviews	GET /api/review/food/:foodId, POST /api/review/add
-🔭 Future Scope
+├── backend/    config, models, controllers, routes, middleware, scripts
+├── frontend/   React customer app (components, pages, context)
+└── admin/      React admin panel (pages, components)
+```
 
-Razorpay/UPI payments, live delivery tracking on a map, email/SMS notifications, cloud image storage and deployment.
+## Main API Endpoints
+- Food: `GET /api/food/list`, `POST /api/food/add`, `POST /api/food/remove`
+- Auth: `POST /api/user/register`, `POST /api/user/login`, `POST /api/admin/login`
+- Cart: `GET /api/cart/get`, `POST /api/cart/add`, `POST /api/cart/remove`
+- Orders: `POST /api/order/place`, `GET /api/order/userorders`, `POST /api/order/cancel`, `POST /api/order/status`
+- Coupons: `POST /api/coupon/apply`, `POST /api/coupon/add`, `GET /api/coupon/list`
+- Reviews: `GET /api/review/food/:foodId`, `POST /api/review/add`
+
+## Future Scope
+- Razorpay and UPI payments
+- Live delivery tracking on a map
+- Email and SMS notifications
+- Cloud image storage and deployment
